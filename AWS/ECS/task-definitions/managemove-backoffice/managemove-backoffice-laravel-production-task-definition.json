@@ -43,7 +43,7 @@
       "name": "ManageMoveBackOfficeNginx",
       "portMappings": [
         {
-          "hostPort": 50001,
+          "hostPort": 60001,
           "containerPort": 80
         }
       ],
