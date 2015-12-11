@@ -1,0 +1,57 @@
+{
+  "family": "managemove-backoffice-queue-production-task-definition",
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/managemove-backoffice-laravel/.env"
+      },
+      "name": "ManageMoveBackOfficeVolume"
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "image": "mmginc/managemove-backoffice-laravel:latest",
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 100,
+      "mountPoints": [
+        {
+          "sourceVolume": "ManageMoveBackOfficeVolume",
+          "containerPath": "/var/www/html/.env"
+        }
+      ],
+      "name": "ManageMoveBackOfficeLaravel"
+    },
+    {
+      "command": [
+        "php",
+        "artisan",
+        "queue:listen",
+        "database",
+        "--timeout=10800",
+        "--tries=1",
+        "--verbose"
+      ],
+      "essential": true,
+      "image": "mmginc/managemove-backoffice-queue:%REVISION%",
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 500,
+      "name": "ManageMoveBackOfficeQueue",
+      "volumesFrom": [
+        {
+          "sourceContainer": "ManageMoveBackOfficeLaravel"
+        }
+      ]
+    }
+  ]
+}

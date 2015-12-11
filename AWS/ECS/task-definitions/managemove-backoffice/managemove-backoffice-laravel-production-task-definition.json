@@ -1,0 +1,74 @@
+{
+  "family": "managemove-backoffice-laravel-production-task-definition",
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/managemove-backoffice-laravel/.env"
+      },
+      "name": "ManageMoveBackOfficeVolume"
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "image": "mmginc/managemove-backoffice-laravel:%REVISION%",
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 100,
+      "mountPoints": [
+        {
+          "sourceVolume": "ManageMoveBackOfficeVolume",
+          "containerPath": "/var/www/html/.env"
+        }
+      ],
+      "name": "ManageMoveBackOfficeLaravel"
+    },
+    {
+      "essential": true,
+      "image": "mmginc/managemove-backoffice-nginx:latest",
+      "links": [
+        "ManageMoveBackOfficePhpFpm"
+      ],
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 100,
+      "name": "ManageMoveBackOfficeNginx",
+      "portMappings": [
+        {
+          "hostPort": 50001,
+          "containerPort": 80
+        }
+      ],
+      "volumesFrom": [
+        {
+          "sourceContainer": "ManageMoveBackOfficeLaravel"
+        }
+      ]
+    },
+    {
+      "essential": true,
+      "image": "mmginc/managemove-backoffice-php-fpm:latest",
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 200,
+      "name": "ManageMoveBackOfficePhpFpm",
+      "volumesFrom": [
+        {
+          "sourceContainer": "ManageMoveBackOfficeLaravel"
+        }
+      ]
+    }
+  ]
+}
