@@ -45,7 +45,7 @@
           "max-size": "50m"
         }
       },
-      "memory": 300,
+      "memory": 1000,
       "name": "ManageMoveBackOfficeQueue",
       "volumesFrom": [
         {
