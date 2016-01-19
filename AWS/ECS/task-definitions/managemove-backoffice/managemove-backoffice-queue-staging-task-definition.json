@@ -11,7 +11,7 @@
   "containerDefinitions": [
     {
       "essential": true,
-      "image": "mmginc/managemove-backoffice-laravel:latest",
+      "image": "mmginc/managemove-backoffice-laravel:latest-dev",
       "logConfiguration": {
         "logDriver": "json-file",
         "options": {
