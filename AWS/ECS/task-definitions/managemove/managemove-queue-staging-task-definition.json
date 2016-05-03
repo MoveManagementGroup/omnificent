@@ -1,17 +1,17 @@
 {
-  "family": "managemove-backoffice-queue-staging-task-definition",
+  "family": "managemove-queue-staging-task-definition",
   "volumes": [
     {
       "host": {
-        "sourcePath": "/home/ec2-user/mmginc-web-settings/staging/managemove-backoffice-laravel/.env"
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/staging/managemove-laravel/.env"
       },
-      "name": "ManageMoveBackOfficeVolume"
+      "name": "ManageMoveVolume"
     }
   ],
   "containerDefinitions": [
     {
       "essential": true,
-      "image": "mmginc/managemove-backoffice-laravel:latest-dev",
+      "image": "mmginc/managemove-laravel:latest-dev",
       "logConfiguration": {
         "logDriver": "json-file",
         "options": {
@@ -21,11 +21,11 @@
       "memory": 100,
       "mountPoints": [
         {
-          "sourceVolume": "ManageMoveBackOfficeVolume",
+          "sourceVolume": "ManageMoveVolume",
           "containerPath": "/var/www/html/.env"
         }
       ],
-      "name": "ManageMoveBackOfficeLaravel"
+      "name": "ManageMoveLaravel"
     },
     {
       "command": [
@@ -38,7 +38,7 @@
         "--verbose"
       ],
       "essential": true,
-      "image": "mmginc/managemove-backoffice-queue:%REVISION%",
+      "image": "mmginc/managemove-queue:%REVISION%",
       "logConfiguration": {
         "logDriver": "json-file",
         "options": {
@@ -46,10 +46,10 @@
         }
       },
       "memory": 850,
-      "name": "ManageMoveBackOfficeQueue",
+      "name": "ManageMoveQueue",
       "volumesFrom": [
         {
-          "sourceContainer": "ManageMoveBackOfficeLaravel"
+          "sourceContainer": "ManageMoveLaravel"
         }
       ]
     }

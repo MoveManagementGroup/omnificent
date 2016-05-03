@@ -1,17 +1,17 @@
 {
-  "family": "managemove-backoffice-laravel-production-task-definition",
+  "family": "managemove-laravel-staging-task-definition",
   "volumes": [
     {
       "host": {
-        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/managemove-backoffice-laravel/.env"
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/staging/managemove-laravel/.env"
       },
-      "name": "ManageMoveBackOfficeVolume"
+      "name": "ManageMoveVolume"
     }
   ],
   "containerDefinitions": [
     {
       "essential": true,
-      "image": "mmginc/managemove-backoffice-laravel:%REVISION%",
+      "image": "mmginc/managemove-laravel:%REVISION%",
       "logConfiguration": {
         "logDriver": "json-file",
         "options": {
@@ -21,17 +21,17 @@
       "memory": 100,
       "mountPoints": [
         {
-          "sourceVolume": "ManageMoveBackOfficeVolume",
+          "sourceVolume": "ManageMoveVolume",
           "containerPath": "/var/www/html/.env"
         }
       ],
-      "name": "ManageMoveBackOfficeLaravel"
+      "name": "ManageMoveLaravel"
     },
     {
       "essential": true,
-      "image": "mmginc/managemove-backoffice-nginx:latest",
+      "image": "mmginc/managemove-nginx:latest",
       "links": [
-        "ManageMoveBackOfficePhpFpm"
+        "ManageMovePhpFpm"
       ],
       "logConfiguration": {
         "logDriver": "json-file",
@@ -40,22 +40,22 @@
         }
       },
       "memory": 100,
-      "name": "ManageMoveBackOfficeNginx",
+      "name": "ManageMoveNginx",
       "portMappings": [
         {
-          "hostPort": 60001,
+          "hostPort": 50000,
           "containerPort": 80
         }
       ],
       "volumesFrom": [
         {
-          "sourceContainer": "ManageMoveBackOfficeLaravel"
+          "sourceContainer": "ManageMoveLaravel"
         }
       ]
     },
     {
       "essential": true,
-      "image": "mmginc/managemove-backoffice-php-fpm:latest",
+      "image": "mmginc/managemove-php-fpm:latest",
       "logConfiguration": {
         "logDriver": "json-file",
         "options": {
@@ -63,10 +63,10 @@
         }
       },
       "memory": 200,
-      "name": "ManageMoveBackOfficePhpFpm",
+      "name": "ManageMovePhpFpm",
       "volumesFrom": [
         {
-          "sourceContainer": "ManageMoveBackOfficeLaravel"
+          "sourceContainer": "ManageMoveLaravel"
         }
       ]
     }
