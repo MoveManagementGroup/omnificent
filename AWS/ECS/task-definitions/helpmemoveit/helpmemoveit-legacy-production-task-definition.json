@@ -1,0 +1,84 @@
+{
+  "family": "helpmemoveit-legacy-production-task-definition",
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/helpmemoveit-legacy/include/common.php"
+      },
+      "name": "VolumeHelpMeMoveItCommon"
+    },
+    {
+      "host": {
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/helpmemoveit-legacy/include/common_mail_function.php"
+      },
+      "name": "VolumeHelpMeMoveItCommonMailFunction"
+    },
+    {
+      "host": {
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/helpmemoveit-legacy/include/common_mysql.php"
+      },
+      "name": "VolumeHelpMeMoveItCommonMySql"
+    },
+    {
+      "host": {
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/helpmemoveit-legacy/include/common_server.php"
+      },
+      "name": "VolumeHelpMeMoveItCommonServer"
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "image": "mmginc/helpmemoveit-apache-php:latest",
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 200,
+      "name": "HelpMeMoveItApachePhp",
+      "portMappings": [
+        {
+          "hostPort": 60001,
+          "containerPort": 80
+        }
+      ],
+      "volumesFrom": [
+        {
+          "sourceContainer": "HelpMeMoveItLegacy"
+        }
+      ]
+    },
+    {
+      "essential": true,
+      "image": "mmginc/helpmemoveit-legacy:%REVISION%",
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 100,
+      "mountPoints": [
+        {
+          "sourceVolume": "VolumeHelpMeMoveItCommon",
+          "containerPath": "/var/www/html/public/include/common.php"
+        },
+        {
+          "sourceVolume": "VolumeHelpMeMoveItCommonMailFunction",
+          "containerPath": "/var/www/html/public/include/common_mail_function.php"
+        },
+        {
+          "sourceVolume": "VolumeHelpMeMoveItCommonMySql",
+          "containerPath": "/var/www/html/public/include/common_mysql.php"
+        },
+        {
+          "sourceVolume": "VolumeHelpMeMoveItCommonServer",
+          "containerPath": "/var/www/html/public/include/common_server.php"
+        }
+      ],
+      "name": "HelpMeMoveItLegacy"
+    }
+  ]
+}
