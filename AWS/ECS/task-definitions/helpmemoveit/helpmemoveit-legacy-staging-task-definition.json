@@ -63,19 +63,19 @@
       "mountPoints": [
         {
           "sourceVolume": "VolumeHelpMeMoveItCommon",
-          "containerPath": "/var/www/html/include/common.php"
+          "containerPath": "/var/www/html/public/include/common.php"
         },
         {
           "sourceVolume": "VolumeHelpMeMoveItCommonMailFunction",
-          "containerPath": "/var/www/html/include/common_mail_function.php"
+          "containerPath": "/var/www/html/public/include/common_mail_function.php"
         },
         {
           "sourceVolume": "VolumeHelpMeMoveItCommonMySql",
-          "containerPath": "/var/www/html/include/common_mysql.php"
+          "containerPath": "/var/www/html/public/include/common_mysql.php"
         },
         {
           "sourceVolume": "VolumeHelpMeMoveItCommonServer",
-          "containerPath": "/var/www/html/include/common_server.php"
+          "containerPath": "/var/www/html/public/include/common_server.php"
         }
       ],
       "name": "HelpMeMoveItLegacy"
