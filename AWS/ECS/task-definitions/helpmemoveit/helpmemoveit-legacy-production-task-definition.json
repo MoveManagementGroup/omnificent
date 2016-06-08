@@ -24,6 +24,12 @@
         "sourcePath": "/home/ec2-user/mmginc-web-settings/production/helpmemoveit-legacy/include/common_server.php"
       },
       "name": "VolumeHelpMeMoveItCommonServer"
+    },
+    {
+      "host": {
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/staging/helpmemoveit-legacy/include/common_s3.php"
+      },
+      "name": "VolumeHelpMeMoveItCommonS3"
     }
   ],
   "containerDefinitions": [
@@ -76,6 +82,10 @@
         {
           "sourceVolume": "VolumeHelpMeMoveItCommonServer",
           "containerPath": "/var/www/html/public/include/common_server.php"
+        },
+        {
+          "sourceVolume": "VolumeHelpMeMoveItCommonS3",
+          "containerPath": "/var/www/html/public/include/common_s3.php"
         }
       ],
       "name": "HelpMeMoveItLegacy"
