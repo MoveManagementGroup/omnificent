@@ -27,7 +27,7 @@
     },
     {
       "host": {
-        "sourcePath": "/home/ec2-user/mmginc-web-settings/staging/helpmemoveit-legacy/include/common_s3.php"
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/helpmemoveit-legacy/include/common_s3.php"
       },
       "name": "VolumeHelpMeMoveItCommonS3"
     }
