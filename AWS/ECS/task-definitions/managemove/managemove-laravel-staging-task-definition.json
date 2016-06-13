@@ -34,9 +34,10 @@
         "ManageMovePhpFpm"
       ],
       "logConfiguration": {
-        "logDriver": "json-file",
+        "logDriver": "awslogs",
         "options": {
-          "max-size": "50m"
+          "awslogs-group": "lg-managemove-laravel-staging",
+          "awslogs-region": "us-west-2"
         }
       },
       "memory": 100,
