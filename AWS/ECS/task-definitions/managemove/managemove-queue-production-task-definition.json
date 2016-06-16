@@ -46,7 +46,7 @@
           "awslogs-region": "us-west-2"
         }
       },
-      "memory": 850,
+      "memory": 2000,
       "name": "ManageMoveQueue",
       "volumesFrom": [
         {

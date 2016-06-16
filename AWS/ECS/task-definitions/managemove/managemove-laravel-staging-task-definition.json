@@ -40,7 +40,7 @@
           "awslogs-region": "us-west-2"
         }
       },
-      "memory": 100,
+      "memory": 300,
       "name": "ManageMoveNginx",
       "portMappings": [
         {
@@ -63,7 +63,7 @@
           "max-size": "50m"
         }
       },
-      "memory": 200,
+      "memory": 600,
       "name": "ManageMovePhpFpm",
       "volumesFrom": [
         {
