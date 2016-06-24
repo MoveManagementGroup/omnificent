@@ -46,6 +46,10 @@
         {
           "hostPort": 50000,
           "containerPort": 80
+        },
+        {
+          "hostPort": 50001,
+          "containerPort": 443
         }
       ],
       "volumesFrom": [

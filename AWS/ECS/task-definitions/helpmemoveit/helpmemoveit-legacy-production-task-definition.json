@@ -46,8 +46,12 @@
       "name": "HelpMeMoveItApachePhp",
       "portMappings": [
         {
-          "hostPort": 60001,
+          "hostPort": 60002,
           "containerPort": 80
+        },
+        {
+          "hostPort": 60003,
+          "containerPort": 443
         }
       ],
       "volumesFrom": [
