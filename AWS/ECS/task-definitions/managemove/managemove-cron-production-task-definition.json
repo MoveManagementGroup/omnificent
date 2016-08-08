@@ -1,0 +1,48 @@
+{
+  "family": "managemove-cron-production-task-definition",
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/home/ec2-user/mmginc-web-settings/production/managemove-laravel/.env"
+      },
+      "name": "ManageMoveVolume"
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "image": "mmginc/managemove-cron:%REVISION%",
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 100,
+      "name": "ManageMoveCron",
+      "volumesFrom": [
+        {
+          "sourceContainer": "ManageMoveLaravel"
+        }
+      ]
+    },
+    {
+      "essential": true,
+      "image": "mmginc/managemove-laravel:latest",
+      "logConfiguration": {
+        "logDriver": "json-file",
+        "options": {
+          "max-size": "50m"
+        }
+      },
+      "memory": 100,
+      "mountPoints": [
+        {
+          "sourceVolume": "ManageMoveVolume",
+          "containerPath": "/var/www/html/.env"
+        }
+      ],
+      "name": "ManageMoveLaravel"
+    }
+  ]
+}
