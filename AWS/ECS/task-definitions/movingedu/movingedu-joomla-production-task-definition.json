@@ -6,7 +6,7 @@
         "sourcePath": "/home/ec2-user/mmginc-web-settings/production/movingedu-joomla/configuration.php"
       },
       "name": "VolumeMovingEduConfiguration"
-    },
+    }
   ],
   "containerDefinitions": [
     {
